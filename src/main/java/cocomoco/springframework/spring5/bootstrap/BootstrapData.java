@@ -5,18 +5,22 @@ import org.springframework.stereotype.Component;
 
 import cocomoco.springframework.spring5.model.Author;
 import cocomoco.springframework.spring5.model.Book;
+import cocomoco.springframework.spring5.model.Publisher;
 import cocomoco.springframework.spring5.repositories.AuthorRepository;
 import cocomoco.springframework.spring5.repositories.BookRepository;
+import cocomoco.springframework.spring5.repositories.PublisherRepository;
 
 @Component
 public class BootstrapData implements CommandLineRunner{
 
 	private final AuthorRepository authorRepo;
 	private final BookRepository bookRepo;
+	private final PublisherRepository publisherRepo;
 
-	public BootstrapData(AuthorRepository aR, BookRepository bR) {
+	public BootstrapData(AuthorRepository aR, BookRepository bR, PublisherRepository pR) {
 		this.authorRepo = aR;
 		this.bookRepo = bR;
+		this.publisherRepo = pR;
 	}
 	
 	@Override
@@ -25,7 +29,7 @@ public class BootstrapData implements CommandLineRunner{
 		
 		Author author1 = new Author("Eric", "Evans");
 		Book book1 = new Book("Domain driven bla","123242");
-	 	
+	 	Publisher publisher1 = new Publisher("Vasilescu", "Cornel Grfsoreanu 9 sc.A");
 		try
         { 
 		 	author1.addBook(book1);
@@ -39,6 +43,7 @@ public class BootstrapData implements CommandLineRunner{
 		
 		this.authorRepo.save(author1);
 		this.bookRepo.save(book1);
+		this.publisherRepo.save(publisher1);
 		
 		Author author2 = new Author("Rob", "Johnson");
 		Book book2 = new Book("J2ee","2878234");
@@ -60,6 +65,9 @@ public class BootstrapData implements CommandLineRunner{
 
 		System.out.println("\n");
 		System.out.println("Number of books " + this.bookRepo.count());
+	
+		System.out.println("\n");
+		System.out.println("Publisher" + this.publisherRepo.count());
 	}
 	
 }
